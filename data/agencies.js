@@ -591,7 +591,36 @@ const carAgencyManager = {
       return `The agency with the id or name of ${agencyId} wasn't found try a different agency name or id`;
     }
   },
+  // Transfer a car from one agency to another.
+  // @param {string} fromAgencyId - The ID of the agency from where the car will be transferred
+  // @param {string} toAgencyId - The ID of the agency to where the car will be transferred
+  // @param {string} carId - The ID of the car to be transferred
+  // @return {boolean} - true if transferred successfully, false otherwise
+  transferCarBetweenAgencies(fromAgencyId, toAgencyId, carId) {
+    const fromAgencySwap = this.searchAgency(fromAgencyId);
+    const toAgencySwap = this.searchAgency(toAgencyId);
+    const swappedCarId = {
+      ...fromAgencySwap.cars.find((carObj) => carObj.models.find((carModel) => carModel.carNumber === carId)),
+    };
+    // test to check that i got all the variables correctly
+    console.log(fromAgencySwap);
+    console.log(toAgencySwap);
+    console.log(swappedCarId);
+    if (fromAgencySwap && toAgencySwap && swappedCarId) {
+      swappedCarId.models = swappedCarId.models.filter((model) => model.carNumber === carId);
+      this.addCarToAgency(toAgencyId, swappedCarId);
+      this.removeCarFromAgency(fromAgencyId, carId);
+      return true;
+    }
+    return false;
+  },
 };
+// if (searchedFromAgency && searchedToAgency && searchCarModel) {
+//   searchCarModel.models = searchCarModel.models.filter((model) => model.carNumber === carId);
+//   this.addCarToAgency(toAgencyId, searchCarModel);
+//   this.removeCarFromAgency(fromAgencyId, carId);
+//   return true;
+// }
 
 //tests
 const car = {
@@ -612,8 +641,6 @@ console.log(carAgencyManager.searchAgency('The Auto World'));
 console.log(carAgencyManager.getAllAgenciesName());
 
 console.log(carAgencyManager.addCarToAgency('Carsova', car));
-console.log(carAgencyManager.addCarToAgency('Carsova', car));
-console.log(carAgencyManager.addCarToAgency('Carsova', car));
 console.log(carAgencyManager);
 
 console.log(carAgencyManager.removeCarFromAgency('Carsova', '644545'));
@@ -627,3 +654,5 @@ console.log(carAgencyManager);
 console.log(carAgencyManager.updateCarPrice('Best Deal', 'AZJZ4', 7500));
 
 console.log(carAgencyManager.getTotalAgencyRevenue('Carsova'));
+
+console.log(carAgencyManager.transferCarBetweenAgencies('Best Deal', 'CarMax', '7A5b-'));
