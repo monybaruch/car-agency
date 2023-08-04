@@ -492,40 +492,44 @@ const agencies = [
       },
     ],
   },
+];
+
+const carAgencyManager = {
+  ...agencies,
   // getAgencyByName
   // @param {string} - name
   // @return {Object} - agency object
-  (getAgencyByName = function (name) {
+  getAgencyByName(name) {
     agencyByName = agencies.find((car) => car.agencyName === name);
     if (this.agencyName !== name) {
       return `The agency name of ${name} that you entered wasn't found! please enter a different name !`;
     } else {
       return agencyByName;
     }
-  }),
+  },
   // getAgencyIdByName
   // @param {String} - name
   // @return {String} - agencyId
-  (getAgencyIdByName = function (name) {
+  getAgencyIdByName(name) {
     agencyById = agencies.find((car) => car.agencyId === name);
     if (this.AgencyById !== name) {
       return `The agency id of ${name} that you entered wasn't found! please enter a different id !`;
     } else {
       return agencyById;
     }
-  }),
+  },
   // getAllAgenciesName
   // @return {string[]} - agenciesNameArr - Array of all agencies name
-  (getAllAgenciesName = function () {
+  getAllAgenciesName() {
     let agenciesNames = agencies.map((agency) => agency.agencyName);
     return agenciesNames;
-  }),
-];
+  },
+};
 
 //tests
 
-getAgencyByName('Carsova');
+carAgencyManager.getAgencyByName('Carsova');
 console.log(agencyByName);
-getAgencyIdByName('9KeaYbRLP');
+carAgencyManager.getAgencyIdByName('9KeaYbRLP');
 console.log(agencyById);
-console.log(getAllAgenciesName());
+console.log(carAgencyManager.getAllAgenciesName());
