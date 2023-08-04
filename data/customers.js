@@ -155,7 +155,18 @@ const CustomerManager = {
       console.log(filteredCustomer);
       return true;
     }
-    return false;
+    return `The customer with the id or name of ${customerId} wasn't found try a different agency name or id`;
+  },
+  // Calculate the total value of all cars owned by a specific customer.
+  // @param {string} customerId - The ID of the customer
+  // @return {number} - The total value of cars owned by the customer
+  getCustomerTotalCarValue(customerId) {
+    const filteredCustomer = this.searchCustomer(customerId);
+    if (filteredCustomer) {
+      const totalCarValue = filteredCustomer.cars.reduce((total, car) => total + car.price, 0);
+      return totalCarValue;
+    }
+    return `The customer with the id or name of ${customerId} wasn't found try a different agency name or id`;
   },
 };
 
@@ -164,4 +175,7 @@ const CustomerManager = {
 console.log(CustomerManager.searchCustomer('Lilah Goulding'));
 
 console.log(CustomerManager.getAllCustomers());
+
 console.log(CustomerManager.changeCustomerCash('BGzHhjnE8', 8000));
+
+console.log(CustomerManager.getCustomerTotalCarValue('Lana Edge'));
