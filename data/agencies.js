@@ -496,40 +496,36 @@ const agencies = [
   // @param {string} - name
   // @return {Object} - agency object
   (getAgencyByName = function (name) {
-    AgencyByName = agencies.find((car) => car.agencyName === name);
+    agencyByName = agencies.find((car) => car.agencyName === name);
     if (this.agencyName !== name) {
-      return `The agency name of ${name} that you entered wasn't found! please enter a different name!`;
+      return `The agency name of ${name} that you entered wasn't found! please enter a different name !`;
     } else {
-      return AgencyByName;
+      return agencyByName;
     }
   }),
   // getAgencyIdByName
   // @param {String} - name
   // @return {String} - agencyId
-  (getAgencyIdByName = function (name) {}),
+  (getAgencyIdByName = function (name) {
+    agencyById = agencies.find((car) => car.agencyId === name);
+    if (this.AgencyById !== name) {
+      return `The agency id of ${name} that you entered wasn't found! please enter a different id !`;
+    } else {
+      return agencyById;
+    }
+  }),
   // getAllAgenciesName
   // @return {string[]} - agenciesNameArr - Array of all agencies name
-  (getAllAgenciesName = function () {}),
+  (getAllAgenciesName = function () {
+    let agenciesNames = agencies.map((agency) => agency.agencyName);
+    return agenciesNames;
+  }),
 ];
 
-// const searchObject = carList.find((car) => car.id == searchId);
-
-// const { brand, model, price } = searchObject;
+//tests
 
 getAgencyByName('Carsova');
-console.log(AgencyByName);
-getAgencyByName('Car Works');
-console.log(AgencyByName);
-
-// addPlayer: function (player) {
-//   this.players.push(player);
-// },
-// /**
-//  * Remove a player from the game world
-//  * @param {Object} player - The player object
-//  */
-// removePlayer: function (player) {
-//   this.players = this.players.filter(
-//     (element) => element.name !== player.name
-//   );
-// },
+console.log(agencyByName);
+getAgencyIdByName('9KeaYbRLP');
+console.log(agencyById);
+console.log(getAllAgenciesName());
