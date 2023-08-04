@@ -143,6 +143,20 @@ const CustomerManager = {
     let customersNames = customers.map((customer) => customer.name);
     return customersNames;
   },
+  // Change the cash of a customer.
+  // @param {string} customerId - The ID of the customer
+  // @param {number} cash - The new cash value
+  // @return {boolean} - true if updated successfully, false otherwise
+  changeCustomerCash(customerId, cash) {
+    const filteredCustomer = this.searchCustomer(customerId);
+    if (filteredCustomer) {
+      filteredCustomer.cash = cash;
+      // for test only to see that the cash did changed
+      console.log(filteredCustomer);
+      return true;
+    }
+    return false;
+  },
 };
 
 //tests
@@ -150,3 +164,4 @@ const CustomerManager = {
 console.log(CustomerManager.searchCustomer('Lilah Goulding'));
 
 console.log(CustomerManager.getAllCustomers());
+console.log(CustomerManager.changeCustomerCash('BGzHhjnE8', 8000));
