@@ -26,12 +26,12 @@ const CarAgencyManager = {
   // @return {boolean} - true if removed successfully, false otherwise
   removeCarFromAgency: function (agencyId, carId) {},
 
-  // Change the cash or credit of an agency.
+  // 6 Change the cash or credit of an agency.
   // @param {string} agencyId - The ID of the agency
+  // @param {string} cashOrCredit - type of cash or credit to be updated
   // @param {number} cashOrCredit - The amount of cash or credit to be updated
   // @return {boolean} - true if updated successfully, false otherwise
-  changeAgencyCashOrCredit: function (agencyId, cashOrCredit) {},
-
+  changeAgencyCashOrCredit: function (agencyId, cashOrCreditStr, cashOrCreditAmount) {},
   // Update the price of a specific car in an agency.
   // @param {string} agencyId - The ID of the agency
   // @param {string} carId - The ID of the car

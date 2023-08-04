@@ -340,7 +340,7 @@ const agencies = [
     ],
   },
   {
-    agencyName: 'Car Works',
+    agencyName: 'Car Werks',
     cash: 302502,
     credit: 150000,
     agencyId: '9KeaYbRLP',
@@ -496,26 +496,18 @@ const agencies = [
 
 const carAgencyManager = {
   ...agencies,
-  // getAgencyByName
-  // @param {string} - name
-  // @return {Object} - agency object
-  getAgencyByName(name) {
-    agencyByName = agencies.find((car) => car.agencyName === name);
-    if (this.agencyName !== name) {
-      return `The agency name of ${name} that you entered wasn't found! please enter a different name !`;
+  // Search for a car agency by its name or ID.
+  // @param {string} idOrName - ID or name of the agency
+  // @return {object} - agency object if found, otherwise null
+  searchAgency(idOrName) {
+    const agencyWasFound = agencies.find((agency) => {
+      return agency.agencyName === idOrName || agency.agencyId === idOrName;
+    });
+    if (agencyWasFound) {
+      return agencyWasFound;
     } else {
-      return agencyByName;
-    }
-  },
-  // getAgencyIdByName
-  // @param {String} - name
-  // @return {String} - agencyId
-  getAgencyIdByName(name) {
-    agencyById = agencies.find((car) => car.agencyId === name);
-    if (this.AgencyById !== name) {
-      return `The agency id of ${name} that you entered wasn't found! please enter a different id !`;
-    } else {
-      return agencyById;
+      console.log(`The agency with the id or name of ${idOrName} wasn't found try a different agency name or id`);
+      return null;
     }
   },
   // getAllAgenciesName
@@ -524,12 +516,114 @@ const carAgencyManager = {
     let agenciesNames = agencies.map((agency) => agency.agencyName);
     return agenciesNames;
   },
+  // Add a new car to an agency's inventory.
+  // @param {string} agencyId - The ID of the agency
+  // @param {object} car - The car object to be added
+  // @return {boolean} - true if added successfully, false otherwise
+  addCarToAgency(agencyId, car) {
+    const filteredAgency = this.searchAgency(agencyId);
+    return filteredAgency
+      ? filteredAgency.cars.push(car)
+      : `The agency with the id or name of ${agencyId} wasn't found try a different agency name or id`;
+  },
+
+  // Remove a car from an agency's inventory.
+  // @param {string} agencyId - The ID of the agency
+  // @param {string} carId - The ID of the car to be removed
+  // @return {boolean} - true if removed successfully, false otherwise
+  removeCarFromAgency(agencyId, carId) {
+    const filteredAgency = this.searchAgency(agencyId);
+    const filteredCars = filteredAgency.cars.find((carObj) =>
+      carObj.models.find((carNum) => carNum.carNumber === carId)
+    );
+    if (filteredCars && filteredCars) {
+      filteredAgency.cars.map((carObj) => (carObj.models = carObj.models.filter((model) => model.carNumber !== carId)));
+      return true;
+    }
+    return false;
+  },
+  // 6 Change the cash or credit of an agency.
+  // @param {string} agencyId - The ID of the agency
+  // @param {string} cashOrCredit - type of cash or credit to be updated
+  // @param {number} cashOrAmount - The amount of cash or credit to be updated
+  // @return {boolean} - true if updated successfully, false otherwise
+  changeAgencyCashOrCredit(agencyId, cashOrCreditStr, cashOrCreditAmount) {
+    const filteredAgency = this.searchAgency(agencyId);
+    if (filteredAgency) {
+      filteredAgency[cashOrCreditStr] = cashOrCreditAmount;
+      return true;
+    }
+    return false;
+  },
+  // Update the price of a specific car in an agency.
+  // @param {string} agencyId - The ID of the agency
+  // @param {string} carId - The ID of the car
+  // @param {number} newPrice - The new price of the car
+  // @return {boolean} - true if updated successfully, false otherwise
+  updateCarPrice(agencyId, carId, newPrice) {
+    const filteredAgency = this.searchAgency(agencyId);
+    const filteredCars = filteredAgency.cars.find((carObj) =>
+      carObj.models.find((carNum) => carNum.carNumber === carId)
+    );
+    if (filteredAgency && filteredCars) {
+      filteredAgency.cars.map((carObj) =>
+        carObj.models.find((carModel) => {
+          if (carModel.carNumber === carId) {
+            carModel.price = newPrice;
+          }
+        })
+      );
+      console.log(filteredCars);
+      return true;
+    }
+    return false;
+  },
+  // Calculate and return the total revenue for a specific agency.
+  // @param {string} agencyId - The ID of the agency
+  // @return {number} - The total revenue of the agency
+  getTotalAgencyRevenue(agencyId) {
+    const filteredAgency = this.searchAgency(agencyId);
+    let totalRevenue = 0;
+    if (filteredAgency) {
+      totalRevenue = filteredAgency.cash + filteredAgency.credit;
+      return totalRevenue;
+    } else {
+      return `The agency with the id or name of ${agencyId} wasn't found try a different agency name or id`;
+    }
+  },
 };
 
 //tests
+const car = {
+  brand: 'nisan',
+  models: [
+    {
+      name: '3',
+      year: 2022,
+      price: 155000,
+      carNumber: '644545',
+      ownerId: 'dopfdio',
+    },
+  ],
+};
 
-carAgencyManager.getAgencyByName('Carsova');
-console.log(agencyByName);
-carAgencyManager.getAgencyIdByName('9KeaYbRLP');
-console.log(agencyById);
+console.log(carAgencyManager.searchAgency('The Auto World'));
+
 console.log(carAgencyManager.getAllAgenciesName());
+
+console.log(carAgencyManager.addCarToAgency('Carsova', car));
+console.log(carAgencyManager.addCarToAgency('Carsova', car));
+console.log(carAgencyManager.addCarToAgency('Carsova', car));
+console.log(carAgencyManager);
+
+console.log(carAgencyManager.removeCarFromAgency('Carsova', '644545'));
+console.log(carAgencyManager.removeCarFromAgency('Carsova', 'AZJZ4'));
+console.log(carAgencyManager.removeCarFromAgency('Carsova', 'ZfbqH'));
+console.log(carAgencyManager);
+
+console.log(carAgencyManager.changeAgencyCashOrCredit('Carsova', 'cash', 1500));
+console.log(carAgencyManager);
+
+console.log(carAgencyManager.updateCarPrice('Best Deal', 'AZJZ4', 7500));
+
+console.log(carAgencyManager.getTotalAgencyRevenue('Carsova'));
