@@ -656,3 +656,5 @@ console.log(carAgencyManager.updateCarPrice('Best Deal', 'AZJZ4', 7500));
 console.log(carAgencyManager.getTotalAgencyRevenue('Carsova'));
 
 console.log(carAgencyManager.transferCarBetweenAgencies('Best Deal', 'CarMax', '7A5b-'));
+
+export { agencies };
