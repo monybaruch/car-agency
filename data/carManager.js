@@ -1,4 +1,4 @@
-import { agencies } from './agencies';
+import { agencies } from './carAgencyManager';
 
 //importing agencies to a new file so that i can use it in CarManager
 

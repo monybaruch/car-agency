@@ -122,7 +122,6 @@ const customers = [
 
 const CustomerManager = {
   ...customers,
-
   // Search for a customer by their name or ID.
   // @param {string} idOrName - ID or name of the customer
   // @return {object} - customer object if found, otherwise null
@@ -179,3 +178,5 @@ console.log(CustomerManager.getAllCustomers());
 console.log(CustomerManager.changeCustomerCash('BGzHhjnE8', 8000));
 
 console.log(CustomerManager.getCustomerTotalCarValue('Lana Edge'));
+
+export { customers };
