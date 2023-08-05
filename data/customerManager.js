@@ -179,4 +179,4 @@ console.log(CustomerManager.changeCustomerCash('BGzHhjnE8', 8000));
 
 console.log(CustomerManager.getCustomerTotalCarValue('Lana Edge'));
 
-export { customers };
+export { customers, CustomerManager };

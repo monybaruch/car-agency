@@ -657,4 +657,4 @@ console.log(carAgencyManager.getTotalAgencyRevenue('Carsova'));
 
 console.log(carAgencyManager.transferCarBetweenAgencies('Best Deal', 'CarMax', '7A5b-'));
 
-export { agencies };
+export { agencies, carAgencyManager };
